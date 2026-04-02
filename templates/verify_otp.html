@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <form method="post" class="register-card">
+            {% csrf_token %}
+            <h2>📧 Verify Email</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <label>Enter OTP sent to your email:</label>
+            <input type="text" name="otp" required placeholder="6-digit OTP">
+
+            <button type="submit" class="reg-btn">Verify OTP</button>
+        </form>
+    </div>
+</body>
+</html>

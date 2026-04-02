@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <span>Expense Tracker</span>
+        </div>
+
+        <div class="nav-right">
+            <a href="{% url 'dashboard' %}" class="nav-link">🏠 Dashboard</a>
+            <a href="{% url 'logout' %}" class="nav-link">↩️ Logout</a>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="profile-card">
+
+        
+    <div class="profile-header">
+        {% if request.user.userprofile.profile_pic %}
+            <img src="{{ request.user.userprofile.profile_pic.url }}" class="profile-img">
+        {% else %}
+            <div class="avatar-letter">
+                {{ request.user.username|slice:":1"|upper }}
+            </div>
+        {% endif %}
+        <h2>{{ request.user.username }}</h2>
+   </div>
+        <div class="profile-info">
+            <p><strong>Joined:</strong> {{ request.user.date_joined|date:"M d, Y" }}</p>
+        </div>
+
+    </section>
+
+    <section class="summary-card">
+        <h2>Financial Summary</h2>
+
+        <div class="summary-box">
+            <div class="card">
+                <h3>Income</h3>
+                <p>₹{{ total_income }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Expense</h3>
+                <p>₹{{ total_expense }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Balance</h3>
+                <p>₹{{ balance }}</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="stats-card">
+        <h2>Quick Stats</h2>
+
+        <div class="summary-box">
+            <div class="card">
+                <h3>Total Transactions</h3>
+                <p>{{ total_transactions }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Top Category</h3>
+                <p>{{ top_category }}</p>
+            </div>
+
+            <div class="card">
+                <h3>This Month</h3>
+                <p>₹{{ monthly_total }}</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="transactions">
+        <h2>Recent Activity</h2>
+
+        {% if recent_expense %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exp in recent_expense %}
+                <tr>
+                    <td>{{ exp.expense_date }}</td>
+                    <td>{{ exp.category }}</td>
+                    <td>₹{{ exp.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>No recent activity</p>
+        {% endif %}
+    </section>
+
+</div>
+
+</body>
+</html>

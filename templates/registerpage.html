@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <form class="register-card" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h2>📝 Create Account</h2>
+
+            {% if errors %}
+                <div class="error-box">
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullname" placeholder="Enter your name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class = "{% if errors %} input-error {% endif %}" placeholder="Enter username" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirm_password" required>
+                </div>
+            </div>
+
+            <div class="gender">
+                <label class="section-label">Gender</label>
+                <div class="gender-options">
+                    <label><input type="radio" name="gender" value="Male"> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <div class="upload">
+                <label class="section-label">Profile Picture</label>
+                <input type="file" name="profile_pic">
+            </div>
+
+            <button type="submit" class="reg-btn">Register</button>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="{% url 'login' %}">Login</a>
+            </p>
+        </form>
+    </div>
+
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>

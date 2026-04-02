@@ -1,0 +1,212 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/mainboard.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-container">
+                <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+
+                <div class="dropdown-hidden" id = "dropdownmenu">
+                     <a href="{% url 'profile' %}">Profile</a>
+                     <a href="{% url 'Report' %}">View Reports</a>
+                     <a href="{% url 'export_page' %}">Export Data</a>
+                     <a href="{% url 'settings' %}">Settings</a>
+                </div>
+            </div>
+            <div class="logo">
+                <span>Expense Tracker</span>
+            </div>
+        </div>
+
+        <div class="nav-right" id="navMenu">
+        {% if request.user.is_authenticated %}
+            <div class="user-profile-section">
+                <a href="{% url 'profile' %}" class="profile-link">
+                    {% if profile.profile_pic %}
+                        <img src="{{ profile.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+                    {% else %}
+                        <div class="profile-avatar-placeholder">
+                            {{ request.user.username | slice:":1"|upper }}
+                        </div>
+                    {% endif %}
+                </a>
+                <a href="{% url 'logout' %}" class="nav-link logout-btn">Logout</a>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'register' %}" class="nav-link">Register</a>
+       {% endif %}
+        </div>
+    </nav>
+</header>
+
+<div class="Greetings">
+    {% if request.user.is_authenticated %}
+        <h2>Hello, {{request.user.username}}! Track Your Budget Today</h2>
+    {% else %}
+        <h2>Welcome! Track Your Expenses Today</h2>
+    {% endif %}
+</div>
+
+<div class="container">
+    <section class="balance-section">
+        <h2>Current Balance: ₹{{balance}}</h2>
+        <div class="buttons">
+            <button class="add_expense">Add Expense</button>
+            <button class="add_Income">Add Income</button>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>Today Spending Category</h2>
+        <div class="chart-container">
+            <canvas id="expenseChart"></canvas>
+        </div>
+    </section>
+
+    <section class="chart1">
+        <h2>Monthly Trend</h2>
+        <div class="chart-container">
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </section>
+
+    <section class="transactions">
+        <h2>Recent Transactions</h2>
+        {% if expenses %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Mode</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.expense_date }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>₹{{ expense.amount }}</td>
+                    <td>{{ expense.payment_mode }}</td>
+                    <td>{{ expense.notes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p style="margin-top:20px; color:#777;">No expenses added yet.</p>
+        {% endif %}
+    </section>
+</div>
+
+<script>
+
+   const menuBtn = document.querySelector(".menu-btn");
+   const dropdownmenu = document.getElementById("dropdownmenu");
+
+   menuBtn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+
+        dropdownmenu.classList.toggle("dropdown-hidden");
+   });
+
+   document.addEventListener("click",()=>{
+    dropdownmenu.classList.add("dropdown-hidden");
+   });
+
+    document.querySelector(".add_expense").onclick = () => {
+        window.location.href = "{% url 'addExpenses' %}";
+    };
+    document.querySelector(".add_Income").onclick = () => {
+        window.location.href = "{% url 'addIncome' %}";
+    };
+
+
+    const categoryData = {{ category_data|safe }};
+    const monthlyData = {{ monthly_data|safe }};
+
+    console.log(monthlyData);
+    console.log(categoryData);
+    
+    if (categoryData.length > 0) {
+        new Chart(document.getElementById('expenseChart'), {
+            type: 'doughnut',
+            data: {
+                labels: categoryData.map(item => item.category),
+                datasets: [{
+                    data: categoryData.map(item => item.total),
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff']
+                }]
+            },
+            options:{
+                responsive:true,
+            }
+        });
+    }
+
+    if (monthlyData.length > 0) {
+        const colors =[
+        'rgba(255, 99, 132, 0.7)',  
+        'rgba(54, 162, 235, 0.7)', 
+        'rgba(255, 206, 86, 0.7)',  
+        'rgba(75, 192, 192, 0.7)',  
+        'rgba(153, 102, 255, 0.7)', 
+        'rgba(255, 159, 64, 0.7)'
+        ];
+        const borderColors = colors.map(color=>color.replace('0.7','1'));
+
+        new Chart(document.getElementById('monthlyChart'), {
+            type: 'bar',
+            data: {
+                labels: monthlyData.map(item => item.month),
+                datasets: [{
+                    label: 'Expenses(₹)',
+                    data: monthlyData.map(item => Number(item.total)),
+                    borderColor: colors,
+                    backgroundColor: borderColors,
+                }]
+            },
+            options: {
+                responsive: true,
+            maintainAspectRatio: false,
+            scales: { 
+                y: { 
+                    beginAtZero: true,
+                    grid: { display: false } 
+                },
+                x: {
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false } 
+             }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

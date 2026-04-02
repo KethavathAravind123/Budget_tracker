@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+
+    <link rel="stylesheet" href="{% static 'css/reports.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+
+<header class="report-header">
+    <h1>📊 Expense Reports</h1>
+    <a href="{% url 'dashboard' %}" class="back-btn">← Back to Dashboard</a>
+</header>
+
+
+<div class="filters">
+    <form method="GET">
+        <input type="date" name="start_date">
+        <input type="date" name="end_date">
+
+        <select name="category">
+            <option value="">All Categories</option>
+            <option>Food</option>
+            <option>Travel</option>
+            <option>Shopping</option>
+            <option>Bills</option>
+        </select>
+
+        <button type="submit">Apply</button>
+    </form>
+</div>
+
+<div class="summary-cards">
+
+    <div class="card income">
+        <h3>Total Income</h3>
+        <p>₹{{ total_income }}</p>
+    </div>
+
+    <div class="card expense">
+        <h3>Total Expense</h3>
+        <p>₹{{ total_expense }}</p>
+    </div>
+
+    <div class="card balance">
+        <h3>Balance</h3>
+        <p>₹{{ balance }}</p>
+    </div>
+
+</div>
+
+
+<div class="charts">
+
+    <div class="chart-box">
+        <h3>Category Distribution</h3>
+        <canvas id="categoryChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <h3>Monthly Trend</h3>
+        <canvas id="monthlyChart"></canvas>
+    </div>
+
+</div>
+
+
+<div class="insights">
+    <h3>💡 Insights</h3>
+    <p>Highest Spending Category: <b>{{ top_category }}</b></p>
+    <p>Total Transactions: <b>{{ total_transactions }}</b></p>
+</div>
+
+
+<div class="transactions-section">
+    <h3>All Transactions</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Mode</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t.date }}</td>
+                <td>{{ t.type }}</td>
+                <td>{{ t.category }}</td>
+                <td>₹{{ t.amount }}</td>
+                <td>{{ t.payment_mode }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const categoryData = JSON.parse('{{ category_data|default:"[]"|escapejs }}');
+    const monthlyData = JSON.parse('{{ monthly_data|default:"[]"|escapejs }}');
+
+    if (categoryData.length > 0) {
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'pie',
+            data: {
+                labels: categoryData.map(item => item.category),
+                datasets: [{
+                    data: categoryData.map(item => item.total),
+                    backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff']
+                }]
+            }
+        });
+    }
+
+    if (monthlyData.length > 0) {
+        new Chart(document.getElementById('monthlyChart'), {
+            type: 'line',
+            data: {
+                labels: monthlyData.map(item => item.month),
+                datasets: [{
+                    label: "Expenses",
+                    data: monthlyData.map(item => item.total),
+                    borderColor: "#36a2eb",
+                    fill: false
+                }]
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

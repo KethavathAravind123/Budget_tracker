@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "{% static 'css/addincome.css' %}">
+</head>
+<body>
+    <form method="post">
+    {% csrf_token %}
+
+    <label for="income_date">Date</label>
+    <input type="date" id="income_date" name="income_date" required>
+
+    <label for="source">Source</label>
+    <select id="source" name="source" required>
+        <option value="">Select Source</option>
+        <option value="Salary">Salary</option>
+        <option value="Freelance">Freelance</option>
+        <option value="Investment">Investment</option>
+        <option value="Gift">Gift</option>
+        <option value="Others">Others</option>
+    </select>
+
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" placeholder="Enter amount" step="0.01" required>
+
+    <label>Payment Mode</label>
+    <label><input type="radio" name="payment_mode" value="Cash" checked>Cash</label>
+    <label><input type="radio" name="payment_mode" value="Bank Transfer">Bank Transfer</label>
+    <label><input type="radio" name="payment_mode" value="Online Payment">Online Payment</label>
+    <label><input type="radio" name="payment_mode" value="Cheque">Cheque</label>
+
+    <label for="notes">Notes (Optional)</label>
+    <textarea id="notes" name="notes" rows="3" placeholder="Optional notes"></textarea>
+
+    <button type="submit">Add Income</button>
+</form>
+
+</body>
+</html>  

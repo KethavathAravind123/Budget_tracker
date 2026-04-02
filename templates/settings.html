@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<style>
+    :root {
+    --primary: #2575fc;
+    --bg: #f4f7fa;
+    --border: #eef0f2;
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --danger: #d63031;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; padding: 0; 
+    font-family: 'Segoe UI', sans-serif; 
+}
+
+body { 
+    background: var(--bg); 
+    color: var(--text-dark); 
+}
+
+.settings-wrapper {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    min-height: 700px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+
+.settings-sidebar {
+    width: 280px;
+    background: #fafbfc;
+    border-right: 1px solid var(--border);
+    padding: 30px 15px;
+}
+
+.sidebar-header { 
+    margin-bottom: 30px; 
+    padding-left: 10px; 
+}
+.back-btn { 
+    text-decoration: none; 
+    color: var(--primary); 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+}
+.sidebar-header h2 { 
+    margin-top: 10px; 
+    font-size: 1.5rem; 
+}
+
+.tab-list { 
+    list-style: none; 
+}
+.tab-item {
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.2s;
+}
+
+.tab-item i {
+     width: 20px; 
+     text-align: center; 
+    }
+.tab-item:hover { 
+    background: #f0f2f5; 
+    color: var(--text-dark); 
+}
+.tab-item.active { 
+    background: var(--primary); 
+    color: #fff; 
+}
+
+.danger-link:hover { 
+    color: var(--danger); 
+    background: #fff5f5; 
+}
+
+.settings-content { 
+    flex: 1; 
+    padding: 40px 60px; 
+}
+.tab-pane { 
+    display: none;
+     animation: fadeIn 0.3s ease-in-out; 
+    }
+.tab-pane.active { 
+    display: block;
+ }
+
+@keyframes fadeIn {
+     from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    } to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+}
+
+.section-header { 
+    margin-bottom: 30px; 
+    border-bottom: 1px solid var(--border);
+     padding-bottom: 20px; 
+    }
+.section-header p { 
+    color: var(--text-light); 
+    font-size: 0.95rem; 
+    margin-top: 5px; 
+}
+
+.form-group { 
+    margin-bottom: 20px; 
+    max-width: 450px; 
+}
+label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+}
+input { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid var(--border); 
+    border-radius: 8px; 
+    font-size: 1rem; 
+}
+input:focus { 
+    outline: none; 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 3px rgba(37,117,252,0.1); 
+}
+
+.btn-save { 
+    background: var(--primary); 
+    color: #fff; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: 0.3s; 
+}
+.btn-save:hover { 
+    opacity: 0.9; 
+    transform: translateY(-1px); 
+}
+
+
+.danger-box { 
+    border: 1px solid #ffccd5; 
+    background: #fff5f5; 
+    padding: 20px; 
+    border-radius: 8px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.btn-danger { 
+    background: var(--danger); 
+    color: #fff; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+}
+.btn-outline{
+    margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    border-radius: 10px;
+    border: none;
+}
+
+.chng-photo{
+    margin-bottom: 10px;
+}
+
+.updt-pass:hover{
+   color: black;
+   background-position: left bottom;
+   transform: translateY(-2px);
+   box-shadow: 0 4px 15px rgba(46,204 , 113 , 0.3);
+}
+
+@media (max-width: 850px) {
+    .settings-wrapper { 
+        flex-direction: column; 
+        margin: 0; 
+        border-radius: 0; 
+    }
+    .settings-sidebar { 
+        width: 100%; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+    }
+}
+</style>
+<div class="settings-wrapper">
+    <aside class="settings-sidebar">
+        <div class="sidebar-header">
+            <a href="{% url 'dashboard' %}" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+            <h2>Settings</h2>
+        </div>
+        <nav>
+            <ul class="tab-list">
+                <li class="tab-item active" data-tab="account">
+                    <i class="fa-regular fa-user"></i> Account
+                </li>
+                <li class="tab-item" data-tab="security">
+                    <i class="fa-solid fa-shield-halved"></i> Security
+                </li>
+                <li class="tab-item" data-tab="budget">
+                    <i class="fa-solid fa-wallet"></i> Budget & Currency
+                </li>
+                <li class="tab-item danger-link" data-tab="danger">
+                    <i class="fa-solid fa-circle-exclamation"></i> Delete Account!
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="settings-content">
+        
+        <section id="account" class="tab-pane active">
+            <div class="section-header">
+                <h3>Account Information</h3>
+                <p>Update your profile details and email address.</p>
+            </div>
+            <form method="post" class="settings-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" value="{{request.user.username}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="{{request.user.email}}" required>
+                </div>
+                 <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone" value="{{profile.phone}}" required>
+                </div>
+                <div class="chng-pic">
+                    <label>Update Photo</label>
+                    <input type="file" class="chng-photo" name = "profile_pic" accept="image/*">
+                </div>
+                <button type="submit" class="btn-save">Update Profile</button>
+            </form>
+        </section>
+
+        <section id="security" class="tab-pane">
+            <div class="section-header">
+                <h3>Security Settings</h3>
+                <p>Manage your password and account authentication.</p>
+            </div>
+            <div class="security-action">
+                <div class="action-info">
+                    <h4>Change Password</h4>
+                    <p>It's a good idea to use a strong password that you're not using elsewhere.</p>
+                </div>
+
+                 <form method="post" class="settings-form">
+                    {% csrf_token %}
+                    <div class="form-group " style="margin-top: 10px;">
+                        <label>Current Password</label>
+                        <input type="password" name="old_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" name="new_password1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" name="new_password2" required>
+                    </div>
+                    <button type="submit" class="btn-save">Update Password</button>
+          </form>
+    </div>
+        </section>
+
+        <section id="budget" class="tab-pane">
+            <div class="section-header">
+                <h3>Budget & Preferences</h3>
+                <p>Configure your financial tracking limits.</p>
+            </div>
+            <div class="form-group">
+                <label>Monthly Budget Limit</label>
+                <div class="input-wrapper">
+                    <span>₹</span>
+                    <input type="number" placeholder="5000.00">
+                </div>
+            </div>
+            <button class="btn-save">Save Budget</button>
+        </section>
+
+        <section id="danger" class="tab-pane">
+            <div class="section-header">
+                <h3 class="text-danger">Danger Zone</h3>
+                <p>Irreversible actions for your account.</p>
+            </div>
+            <div class="danger-box">
+                <div>
+                    <h4>Delete Account</h4>
+                    <p>Once you delete your account, there is no going back. Please be certain.</p>
+                </div>
+               <form action="{% url 'delete_account' %}" method="post" id = "deleteForm">
+                    {% csrf_token %}
+
+                     <button type="button" class="btn-danger" onclick="confirmDelete()">Delete Permanently</button>
+               </form>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+
+    const tabs = document.querySelectorAll('.tab-item');
+    const panes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panes.forEach(p => p.classList.remove('active'));
+
+        
+            tab.classList.add('active');
+            const target = tab.getAttribute('data-tab');
+            document.getElementById(target).classList.add('active');
+        });
+    });
+
+    function confirmDelete(){
+        const doublecheck = confirm("Are you sure? This will delete all your financial records that cannot undone.");
+      if(doublecheck){
+        document.getElementById('deleteForm').submit();
+    }
+    }
+</script>
+
+</body>
+</html>

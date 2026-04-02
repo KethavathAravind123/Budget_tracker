@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expenses</title>
+    <link rel = "stylesheet" href="{% static 'css/addexpense.css' %}">
+</head>
+<body>
+        <form method = "post">
+            {% csrf_token %}
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{message.tags}}">{{message}}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <section class="section1">
+                <label for = "expense_date">Date</label>
+                <input type = "date" id = "expense_date" name = "expense_date">
+            </section>
+
+            <section class="section2 ">
+                <label for= "category">Category</label>
+                <select id = "category" name="category" required>
+                      <option value = "">Select Category</option>  
+                      <option value = "Food">Food</option>
+                      <option value="Travel">Travel</option>
+                      <option value="Shopping">Shopping</option>
+                       <option value="Bills">Bills</option>
+                       <option value="Others">Others</option>
+                </select>
+            </section>
+
+            <section class="section3">
+                <label for = "amount">Amount</label>
+                <input type="number" id = "amount" name="amount" placeholder="Enter amount" step="0.01" required>
+            </section>
+
+            <section class="section3">
+                <label>Payment Mode</label>
+                <label><input type = "radio" name="payment_mode" value = "Cash" checked>Cash</label>
+                <label><input type="radio" name="payment_mode" value="Card">Card</label>
+                <label><input type="radio" name = "payment_mode" value="Online">Online</label>
+            </section>
+
+            <section class="section4">
+                <label for = "notes">Description</label>
+                <textarea id = "notes" name="notes" rows="3" placeholder="Optional notes"></textarea>
+            </section>
+
+            <button type="submit">Add Expense</button>
+        </form>
+</body>
+</html>

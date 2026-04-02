@@ -1,0 +1,260 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+.user-profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.profile-pic{
+    width:35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    transition:transform 0.2s;
+}
+
+.profile-avatar-placeholder{
+    width:35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #36a2eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.profile-pic:hover , .profile-avatar-placeholder:hover{
+    transform:scale(1.1);
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+.profile-link{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    text-decoration: none;
+}
+
+.navbar {
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+
+.dropdown-hidden{
+    display: none !important;
+}
+
+#dropdownmenu{
+    background-color:rgba(0,0,0,0.6);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    border-radius: 8px;
+    padding: 10px 0;
+    z-index: 1001;
+}
+
+#dropdownmenu a{
+    color:white;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+    border-radius: 20px;
+}
+
+#dropdownmenu a:hover{
+    background-color: #f4f6fb;
+    color: #2575fc;
+    border-radius: 20px;
+}
+
+.menu-container{
+    position: relative;
+}
+
+.menu-btn{
+    font-size: 24px;
+    background:transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: color 0.3s;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2575fc;
+    white-space: nowrap;
+    display: block;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  
+}
+
+.nav-link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #333;
+}
+
+.nav-link1:hover{
+    color: #2575fc;
+    cursor: pointer;
+}
+
+.Greetings {
+    width: 85%;
+    margin: 25px auto;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+
+.container {
+    width: 85%;
+    margin: 0 auto 50px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 25px;
+}
+
+section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+
+.balance-section, .transactions {
+    grid-column: 1 / -1; 
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #2575fc;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons button:hover {
+    background: #1a5ed8;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px; 
+    margin-top: 20px;
+}
+
+
+.transactions {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8f9fa;
+}
+
+
+@media (max-width: 768px) {
+    .nav-right {
+        display: flex !important; 
+        gap: 10px;
+    }
+
+    .logout-btn {
+        font-size: 13px;
+        padding: 5px 8px;
+        background: #eee;
+        border-radius: 4px;
+    }
+
+    .logo span {
+        font-size: 16px;
+    }
+
+    .Greetings {
+        width: 95%;
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 95%;
+        grid-template-columns: 1fr; 
+    }
+}

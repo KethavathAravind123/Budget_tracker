@@ -1,0 +1,128 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 40px 35px;
+    width: 380px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+.login-card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2d3436;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+
+.hide {
+    display: none;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.forgot-remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.forgot {
+    color: #667eea;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}
+
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.sign-up-tag {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #636e72;
+    cursor: pointer;
+}
+
+.sign-up-tag:hover {
+    color: #667eea;
+    font-weight: 600;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

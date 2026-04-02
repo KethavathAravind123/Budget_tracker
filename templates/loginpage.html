@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href = "{%static 'css/loginpage.css' %}">
+</head>
+
+<body>
+    
+    <form class="login-card" method="post">
+        {% csrf_token %}
+        <h1>Welcome Back</h1>
+
+        {% if error %}
+        <p style="color: red; text-align:center">{{error}}</p>
+        {% endif %}
+        <div class="form-group">
+            <label>Email</label>
+            <input type = "email" placeholder="Enter your Email" class = "username-input" name="email" >
+            <p class = "hide">*This fileld is required</p>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type = "password" placeholder="Enter your password" class = "password-input" name="password" >
+            <p class = "hide">*This field is required</p>
+        </div>
+        <div class="forgot-remember">
+            <label><input type = "checkbox">Remember</label>
+            <p class="forgot">Forgot Password?</p>
+        </div>
+        <button class="login-btn" type="submit">Login</button>
+        <div class="sign-up-tag">Don't have an Account?</div>
+    </form>
+</body>
+    <script>
+
+    let forgotpass = document.querySelector(".forgot");
+    let login_btn = document.querySelector(".login-btn");
+    const usernameInput = document.getElementsByClassName("username-input")[0];
+    const passwordInput = document.querySelector(".password-input");
+    let usernameError = document.querySelectorAll("p")[0];
+    let passwordError = document.querySelectorAll("p")[1];
+    let signup = document.querySelector(".sign-up-tag");
+    
+    login_btn.addEventListener("click" ,(e)=>{
+        let valid = true
+        if(usernameInput.value.trim() === ""){
+            usernameError.style.display = "block";
+            valid = false
+        }else{
+            usernameError.style.display = "none";
+        }
+        if(passwordInput.value.trim() === ""){
+            passwordError.style.display = "block";
+            valid = false
+        }else{
+            passwordError.style.display = "none";
+        }
+
+        if(!valid){
+            e.preventDefault();
+        }
+    });
+
+    forgotpass.addEventListener("click" , ()=>{
+        window.location.href = "{% url 'forgotpass' %}"
+    })
+
+    signup.addEventListener("click" , ()=>{
+        window.location.href = "{% url 'register' %}"
+    })
+    </script>
+</html>
