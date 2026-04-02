@@ -12,6 +12,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.files.base import ContentFile
 
+from accounts.models import UserProfile
+
 def Login(request):
    if request.method == "POST":
        email =request.POST.get('email')
@@ -23,6 +25,10 @@ def Login(request):
          user = authenticate(request , username=username,password=password)
        except User.DoesNotExist:
            user = None
+       except User.MultipleObjectsReturned:
+           return render(request , "loginpage.html",{
+               'error':'Multiple Accounts found with this email.Please contact support.'
+           })
 
        if user is not None:
            login(request , user)
@@ -205,12 +211,15 @@ def reset_password(request):
             })
         
         
-        user = User.objects.get(email = email)
-        user.set_password(password)
-        user.save()
-
-        request.session.pop('reset_email',None)
-        return redirect('login')
+        users = User.objects.filter(email = email)
+        if users.exists():
+           user = users.first()
+           user.set_password(password)
+           user.save()
+           request.session.pop('reset_email',None)
+           return redirect('login')
+        else:
+            return redirect('login')
     
     return render(request , 'resetpassword.html')
  

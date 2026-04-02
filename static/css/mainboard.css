@@ -26,6 +26,10 @@ body {
     transition:transform 0.2s;
 }
 
+.logout-btn:hover{
+    color: blue;
+}
+
 .profile-avatar-placeholder{
     width:35px;
     height: 35px;
