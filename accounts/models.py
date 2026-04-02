@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 #username,email,password,fullname(first_name) are the default in django
 
 class UserProfile(models.Model):
@@ -11,3 +12,5 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+

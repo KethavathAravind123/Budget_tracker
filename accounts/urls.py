@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/',views.Logout , name = 'logout'),
     path('forgot-password/',views.forgotpass , name="forgotpass"),
     path('reset-password/',views.reset_password , name='reset_password'),
+
 ]

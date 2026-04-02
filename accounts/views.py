@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import UserProfile
 from django.contrib.auth import authenticate , login
 from django.contrib.auth import logout
 from django.core.validators import validate_email
@@ -218,3 +217,6 @@ def reset_password(request):
 def Logout(request):
     logout(request)
     return redirect('login')
+
+
+

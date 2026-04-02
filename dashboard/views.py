@@ -3,6 +3,7 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
+
 from accounts.models import UserProfile
 from .models import Expense , Income
 from django.db.models import Count, Sum
@@ -78,7 +79,7 @@ def addExpenses(request):
         amount = Decimal(request.POST.get("amount"))
         payment_mode = request.POST.get("payment_mode")
         notes = request.POST.get("notes")
-
+    
         expenses = Expense.objects.filter(user = request.user).order_by('-expense_date')
         incomes = Income.objects.filter(user = request.user)
         tota_income = incomes.aggregate(total = Sum('amount'))['total'] or 0
