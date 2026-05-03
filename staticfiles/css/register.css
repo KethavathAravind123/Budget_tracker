@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    overflow-x: hidden;
+}
+
+.error-box{
+    background: #fee2e2;
+    border: 1 px solid #fecaca;
+    color: #b91c1c;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.input-error {
+    border: 1px solid #ef4444 !important;
+    background: #fff5f5;
+}
+
+
+.error-box p{
+    margin: 5px 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    padding: 20px;
+}
+.register-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    margin: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.register-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1e293b;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #475569;
+}
+
+.input-group input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.input-group input:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.3);
+    outline: none;
+}
+
+.gender {
+    margin: 20px 0;
+}
+
+.gender-options {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+}
+
+.gender-options label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+}
+
+.upload {
+    margin: 20px 0;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    font-size: 16px;
+    font-weight: 600;
+    color: #064e3b;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(56, 249, 215, 0.3);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .register-card {
+        padding: 25px;
+    }
+}

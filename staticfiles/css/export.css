@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select,
+.filters button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.filters button {
+    background: #2575fc;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.filters button:hover {
+    background: #1a5ed8;
+}
+
+/* Download buttons */
+.download-btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.csv {
+    background: #28a745;
+}
+
+.pdf {
+    background: #dc3545;
+}
+
+.download-btn:hover {
+    opacity: 0.9;
+}
+
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+th {
+    background: #f8f9fa;
+}
+
+tr:hover {
+    background: #f5f7fb;
+}
+
+.income {
+    color: green;
+    font-weight: bold;
+}
+
+.expense {
+    color: red;
+    font-weight: bold;
+}
+
+/* Action buttons */
+.edit-btn {
+    background: #ffc107;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background: #dc3545;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #e0a800;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+td:last-child{
+    display: flex;
+    gap: 10px;           
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 150px;
+}
+
+.edit-btn, .delete-btn {
+    white-space: nowrap; 
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0;      
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 15px;
+    }
+    .filters {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filters input, .filters select, .filters button {
+        width: 100%;
+    }
+
+   
+    .table-container {
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch;
+        padding: 10px;
+    }
+
+  
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 10px 5px;
+    }
+
+    td:last-child {
+        flex-direction: column;
+        gap: 5px;
+        min-width: 80px;
+    }
+
+    .edit-btn, .delete-btn {
+        width: 100%;
+        margin-right: 0; 
+    }
+}
