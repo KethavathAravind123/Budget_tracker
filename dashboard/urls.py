@@ -12,7 +12,6 @@ urlpatterns = [
     path('delete-account/',views.delete_account , name='delete_account'),
     path('reports/',views.report , name="Report"),
 
-
     path('export/', views.export_page, name='export_page'),
     path('delete/<str:type>/<int:id>/', views.delete_transaction, name='delete_transaction'),
     path('edit/<str:type>/<int:id>/', views.edit_transaction, name='edit_transaction'),

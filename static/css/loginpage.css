@@ -25,6 +25,21 @@ body {
 }
 
 
+.form-group span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.password-input{
+    flex-grow: 1;
+}
+
+.check{
+    width: 4%;
+    cursor: pointer;
+}
+
 .login-card h1 {
     text-align: center;
     margin-bottom: 25px;

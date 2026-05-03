@@ -96,8 +96,12 @@ def Register(request):
             'password': password,
         }
 
-        request.session['profile_pic_name'] = profile_pic.name 
-        request.session['profile_pic_content'] = profile_pic.read().decode('latin1')
+        if profile_pic:
+            request.session['profile_pic_name'] = profile_pic.name 
+            request.session['profile_pic_content'] = profile_pic.read().decode('latin1')
+        else:
+            request.session['profile_pic_name'] = None
+            request.session['profile_pic_content'] = None 
 
         otp = str(random.randint(100000, 999999))
         request.session['email_otp'] = otp
@@ -129,7 +133,7 @@ def verify_otp(request):
             pic_name = request.session.get('profile_pic_name')
             pic_content = request.session.get('profile_pic_content')
 
-            if not data or not pic_name or not pic_content :
+            if not data :
                 messages.error(request, "Session expired.Please Register Again!")
                 return redirect('register')
 
@@ -141,7 +145,10 @@ def verify_otp(request):
                 is_active = True,
             )
             user.save()
-            profile_file = ContentFile(pic_content.encode('latin1'),name =pic_name )
+            if pic_name and pic_content:
+                profile_file = ContentFile(pic_content.encode('latin1'),name =pic_name )
+            else:
+                profile_file = None
 
             UserProfile.objects.create(
                 user=user,
@@ -162,7 +169,6 @@ def verify_otp(request):
             messages.error(request, "Invalid OTP")
 
     return render(request, 'verify_otp.html')
-
 
 
 def forgotpass(request):
@@ -226,6 +232,4 @@ def reset_password(request):
 def Logout(request):
     logout(request)
     return redirect('login')
-
-
 

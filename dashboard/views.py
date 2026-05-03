@@ -3,7 +3,6 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-
 from accounts.models import UserProfile
 from .models import Expense , Income
 from django.db.models import Count, Sum
