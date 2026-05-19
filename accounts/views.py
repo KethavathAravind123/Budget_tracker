@@ -111,7 +111,7 @@ def Register(request):
             f'Hello {fullname}, your OTP for E-mail verification : {otp} Safe verification',
             settings.DEFAULT_FROM_EMAIL,
             [email],
-            fail_silently=True
+            fail_silently=False
         )
 
         return redirect('verify_otp')
