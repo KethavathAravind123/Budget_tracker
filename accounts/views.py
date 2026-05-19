@@ -108,8 +108,8 @@ def Register(request):
 
         send_mail(
             'Verify your Email - OTP',
-            f'Hello {fullname}, your OTP for E-mail verification : {otp} It is safe',
-            settings.EMAIL_HOST_USER,
+            f'Hello {fullname}, your OTP for E-mail verification : {otp} Safe verification',
+            settings.DEFAULT_FROM_EMAIL,
             [email],
             fail_silently=True
         )
