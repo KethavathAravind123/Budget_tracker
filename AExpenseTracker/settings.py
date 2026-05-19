@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e620$+lw(r7#)8fpdym!x4^wgh2(h3iva#8n$5p=%jcf(=9je8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['budget-tracker-1-38cg.onrender.com']
 
