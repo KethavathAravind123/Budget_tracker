@@ -105,14 +105,16 @@ def Register(request):
 
         otp = str(random.randint(100000, 999999))
         request.session['email_otp'] = otp
-
-        send_mail(
-            'Verify your Email - OTP',
-            f'Hello {fullname}, your OTP for E-mail verification : {otp} Safe verification',
-            settings.DEFAULT_FROM_EMAIL,
-            [email],
-            fail_silently=False
-        )
+        try:
+            send_mail(
+                'Verify your Email - OTP',
+                f'Hello {fullname}, your OTP for E-mail verification : {otp} Safe verification',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False
+            )
+        except Exception as e:
+            print("Email Error:",e)
 
         return redirect('verify_otp')
 

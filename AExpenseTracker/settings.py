@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e620$+lw(r7#)8fpdym!x4^wgh2(h3iva#8n$5p=%jcf(=9je8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['budget-tracker-1-38cg.onrender.com']
 
 
 # Application definition
@@ -125,7 +125,7 @@ EMAIL_HOST_USER = 'kethavatharavind3@gmail.com'      # your Gmail address
 EMAIL_HOST_PASSWORD = 'grrgkjgvgunujbqc'      # app password, NOT Gmail login password
 DEFAULT_FROM_EMAIL = 'kethavatharavind3@gmail.com'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
